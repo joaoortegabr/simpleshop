@@ -28,6 +28,13 @@ public class Cart {
 		return selectedItems;
 	}
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", selectedItems=" + selectedItems + "]";
+	}
+
 	public void listItemsInCart() {
 		if(this.selectedItems != null) {
 			for(Item i : getSelectedItems() ) {
@@ -35,9 +42,10 @@ public class Cart {
 			}	
 		} else {
 			System.out.println("O carrinho está vazio.");
-		}
-		
+		}	
 	}
+	
+	
 	
 	
 }

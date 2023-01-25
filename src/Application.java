@@ -41,12 +41,18 @@ public class Application {
 		String username = sc.nextLine();
 		System.out.println("Informe a senha: ");
 		String password = sc.nextLine();
-		
-		
+				
 		shop.login(username, password);
+		System.out.println(shop.getLoggedCustomer());  //APAGAR
 		
-		System.out.println(shop.getLoggedCustomer());
-		
+		shop.mountOrderMenu();
+		System.out.println("Qual item você deseja pedir?");
+		Integer selectedProduct = Integer.parseInt(sc.nextLine());
+		System.out.println("Qual quantidade?");
+		Integer selectedQuantity = Integer.parseInt(sc.nextLine());
+		Product product = shop.getStock().get(selectedProduct).getProduct();
+		shop.addToCart(selectedQuantity, product);
+		System.out.println(shop.getCurrentCart());
 		
 		
 		

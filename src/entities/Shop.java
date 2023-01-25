@@ -11,10 +11,10 @@ public class Shop {
 	protected Cart currentCart = new Cart();
 	
 	public Shop() {
-		List<Customer> customers = new ArrayList<Customer>();
-		List<Item> stock = new ArrayList<Item>();
-		Customer loggedCustomer = new Customer();
-		Cart currentCart = new Cart();
+//		List<Customer> customers = new ArrayList<Customer>();
+//		List<Item> stock = new ArrayList<Item>();
+//		Customer loggedCustomer = new Customer();
+//		Cart currentCart = new Cart();
 	}
 
 	public List<Customer> getCustomers() {
@@ -81,8 +81,20 @@ public class Shop {
 		return quantity;
 	}
 	
+	
+	public Item getItemByProduct(Product product) {
+		Item item = null;
+		for(Item i : stock) {
+			if(i.getProduct().equals(product)) {
+				item = i;
+			}
+		}
+		return item;
+	}
+
 	public void addToCart(int quantity, Product product) {
-		Item item = new Item(quantity, product);
+		
+		Item item = getItemByProduct(product);
 		
 		if(checkIfItemExistsInShop(item)) {
 			if(checkIfItemInStock(quantity, item)) {
@@ -130,7 +142,8 @@ public class Shop {
 							loggedCustomer.setId(c.getId()); 
 							loggedCustomer.setUsername(c.getUsername());
 							loggedCustomer.setCarts(c.getCarts());
-							System.out.println("Usuário " + c.getUsername() + " logado com sucesso.");
+							System.out.println("Usuário " + c.getUsername() + " logado com sucesso.\n"
+									+ "Seu carrinho está vazio.");
 						}
 					}
 				}
@@ -156,6 +169,21 @@ public class Shop {
 		return customerExists;
 	}
 	
+	public void mountOrderMenu() {
+		System.out.println("\n========================");
+		System.out.println("FAÇA SEU PEDIDO");
+		
+		int numItems = 0;
+		for(Item i : getStock()) {
+			System.out.println(numItems++ + " - " + i.getProduct() + " - R$ " + i.getPrice());
+		}
+	}
+	
+	public Product selectProductFromOrderMenu(int option, Product product) {
+		Product selectedProduct = getStock().get(option).getProduct();
+		System.out.println("Você escolheu " + selectedProduct);
+		return selectedProduct;
+	}
 	
 
 	
